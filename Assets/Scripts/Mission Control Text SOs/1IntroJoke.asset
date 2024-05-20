@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88abaac4a5345b9478e631d3b81014ce, type: 3}
+  m_Name: 1IntroJoke
+  m_EditorClassIdentifier: 
+  missionControlText: "I'll bet you didn't expect to play a game about satellites
+    when you fired up an \"Aqua Jam\" game. I didn't expect to make a game about
+    satellites either. \nYet here we are."
