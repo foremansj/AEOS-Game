@@ -117,10 +117,7 @@ public class PlayerController : MonoBehaviour
         currentPlayerHealth -= damage;
         if(currentPlayerHealth <= 0){
             GetComponent<PolygonCollider2D>().enabled = false;
-            FindObjectOfType<CollisionHitstop>().PlayExplosion(this.gameObject);
-            obstacleSpawner.ChangeSpawningStatus();
-            //Destroy(this.gameObject);
-            //game over screen
+            StartCoroutine(FindObjectOfType<GameOver>().GameOverHitstop(this.gameObject)); //maybe move it to here
         }
     }
 

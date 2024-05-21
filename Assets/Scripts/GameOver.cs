@@ -9,7 +9,7 @@ public class GameOver : MonoBehaviour
     
     public IEnumerator GameOverHitstop(GameObject player)
     {
-        FindObjectOfType<ObstacleSpawner>().ChangeSpawningStatus(); //turn off spawning
+        Debug.Log("Trying to do the hitstop gameover");
         player.GetComponent<PolygonCollider2D>().enabled = false; //
         player.GetComponent<Renderer>().material.color = Color.red; //highlight object so it pops, indicating hit
         Time.timeScale = 0f;
@@ -20,6 +20,8 @@ public class GameOver : MonoBehaviour
         player.GetComponent<Animator>().speed = 0.5f;
         FindObjectOfType<CollisionHitstop>().PlayExplosion(player); //play the explosion animation
         yield return new WaitForSeconds(1.6f);
+        FindObjectOfType<DialogueController>().BeginFailureDialogues();
+        FindObjectOfType<GoalController>().PlayerLoses();
         TurnOffPlayer(player);
         gameOverCanvas.SetActive(true);
     }

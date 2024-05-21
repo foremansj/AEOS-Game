@@ -78,15 +78,14 @@ public class GoalController : MonoBehaviour
         FindObjectOfType<GameOver>().EnableGameOverOverlay();
         FindObjectOfType<PlayerController>().GetComponent<PolygonCollider2D>().enabled = false;
         FindObjectOfType<PlayerController>().GetComponent<AudioSource>().PlayOneShot(successAudioClip, 0.3f);
+        FindObjectOfType<UIController>().ToggleHardMode();
+        FindObjectOfType<LevelManager>().UnlockHardMode();
     }
 
     public void PlayerLoses(){
-        obstacleSpeed = 0;
         obstacleSpawner.ChangeSpawningStatus();
-        FindObjectOfType<DialogueController>().BeginFailureDialogues();
         gameOverHeadline.SetText("GAME OVER");
         FindObjectOfType<GameOver>().EnableGameOverOverlay();
-        //turn off the line renderers
         FindObjectOfType<EarthController>().SetMoveSpeed(300);
     }
 }

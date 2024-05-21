@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: c5fa33d9d56606a4c8a340a6c7ff2500
   - enabled: 1
+    path: Assets/Scenes/Credits Scene.unity
+    guid: e64e5160ad56bec4d93ef30c8f2474d6
+  - enabled: 1
     path: Assets/Scenes/Game Scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Credits Scene.unity
-    guid: e64e5160ad56bec4d93ef30c8f2474d6
+    path: Assets/Scenes/Hard Mode.unity
+    guid: b9d8ab486e1961746a86c4f0f908109e
   m_configObjects: {}

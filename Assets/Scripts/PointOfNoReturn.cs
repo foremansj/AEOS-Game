@@ -34,12 +34,14 @@ public class PointOfNoReturn : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player"){
+            FindObjectOfType<DistanceToPointOfNoReturn>().SetDistanceToZero();
             if(approachAngleCalculator.GetAngle() <= 5f){
                 FindObjectOfType<GoalController>().PlayerWins();
             }
             
             else {
                 FindObjectOfType<GoalController>().PlayerLoses();
+                FindObjectOfType<DialogueController>().BeginFailureDialogues();
             }
         }
     }

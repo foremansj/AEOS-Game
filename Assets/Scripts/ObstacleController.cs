@@ -15,21 +15,32 @@ public class ObstacleController : MonoBehaviour
     Rigidbody2D rb;
     float turnSpeed;        
     Vector3 origScale;
+    [SerializeField] bool isHardMode;
+    SpriteRenderer spriteRenderer;
 
 
     private void Start()
     {
+        if(!isHardMode){
+            SetInitialTarget();
+        }
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         obstacleSpeed = Random.Range(minSpeed, maxSpeed);
-        SetInitialTarget();
         origScale = transform.localScale;
         FlipSprite();
     }
 
     private void FixedUpdate()
     {
-        MoveToTarget();
-        ObstacleRotation();
+        if(!isHardMode){
+            MoveToTarget();
+            ObstacleRotation();
+        }
+
+        if(isHardMode){
+            transform.position = Vector2.MoveTowards(transform.position, FindObjectOfType<PlayerController>().transform.position, obstacleSpeed * Time.deltaTime);
+        }
     }
 
     private void MoveToTarget(){
@@ -70,18 +81,29 @@ public class ObstacleController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.tag == "Player"){
             if(FindObjectOfType<PlayerController>().GetCurrentPlayerHealth() > 1){
+                if(isHardMode){
+                    spriteRenderer.color = Color.white;
+                }
                 StartCoroutine(FindObjectOfType<CollisionHitstop>().PlayerCollision(this.gameObject, other.gameObject));
             }
             
             else{
-                StartCoroutine(FindObjectOfType<GameOver>().GameOverHitstop(FindObjectOfType<PlayerController>().gameObject)); 
+                //StartCoroutine(FindObjectOfType<GameOver>().GameOverHitstop(FindObjectOfType<PlayerController>().gameObject)); 
+                other.gameObject.GetComponent<PlayerController>().LowerHealth(1);
                 this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 this.gameObject.GetComponent<PolygonCollider2D>().enabled = false;
             }
         }
 
-        else {
+        else if(other.gameObject.tag == "Projectiles"){
+            spriteRenderer.color = Color.white;
             StartCoroutine(FindObjectOfType<CollisionHitstop>().ObstacleCollision(this.gameObject));
+        }
+        //turn off collision between obstacles if in hard mode
+        else {
+            if(!isHardMode){
+                StartCoroutine(FindObjectOfType<CollisionHitstop>().ObstacleCollision(this.gameObject));
+            }
         }
     }
 
@@ -102,7 +124,9 @@ public class ObstacleController : MonoBehaviour
     }
 
     public void DestroyTarget(){
-        Destroy(target.transform.parent.gameObject);
+        if(target != null){
+            Destroy(target.transform.parent.gameObject);
+        }
     }
 
     private void ObstacleRotation() {

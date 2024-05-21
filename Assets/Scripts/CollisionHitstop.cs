@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CollisionHitstop : MonoBehaviour
 {
-    [SerializeField] int satelliteObstacleDamage;
+    [SerializeField] int obstacleDamage;
     [SerializeField] AudioClip explosionSFX;
     [SerializeField] float explosionVolume;
 
     public IEnumerator PlayerCollision(GameObject obstacle, GameObject player)
     {
         obstacle.GetComponent<PolygonCollider2D>().enabled = false; //do this first so only single collision
-        player.GetComponent<PlayerController>().LowerHealth(satelliteObstacleDamage); //player health is lowered on hit
+        player.GetComponent<PlayerController>().LowerHealth(obstacleDamage); //player health is lowered on hit
         obstacle.GetComponent<Renderer>().material.color = Color.yellow; //highlight object so it pops, indicating hit
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(0.2f);
@@ -42,5 +42,9 @@ public class CollisionHitstop : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         obstacle.GetComponent<ObstacleController>().DestroyTarget();
         Destroy(obstacle);
+    }
+
+    public int GetObstacleDamage(){
+        return obstacleDamage;
     }
 }

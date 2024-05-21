@@ -7,7 +7,7 @@ public class DistanceToPointOfNoReturn : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject target;
     float distanceFromPlayerToTarget;
-    //bool isTesting = true;
+    bool hasReachedTarget = false;
 
     private void Start()
     {
@@ -19,19 +19,20 @@ public class DistanceToPointOfNoReturn : MonoBehaviour
         CalculateDistanceToTarget();
     }
     private void CalculateDistanceToTarget(){
-        distanceFromPlayerToTarget = Vector2.Distance(player.transform.position, target.transform.position);
+        if(!hasReachedTarget){
+            distanceFromPlayerToTarget = Vector2.Distance(player.transform.position, target.transform.position);
+        }
+        
+        else {
+            distanceFromPlayerToTarget = 0f;
+        }
     }
 
     public float GetDistanceToTarget(){
         return distanceFromPlayerToTarget;
     }
 
-    /*IEnumerator DistanceTester(){
-        while(isTesting){
-            CalculateDistanceToTarget();
-            Debug.Log("Distance to target is" + distanceFromPlayerToTarget);
-            yield return new WaitForSeconds(5f);
-        }
-        yield return null;
-    }*/
+    public void SetDistanceToZero(){
+        hasReachedTarget = true;
+    }
 }

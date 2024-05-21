@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     [SerializeField] TextMeshProUGUI approachAngleNumberText;
     [SerializeField] TextMeshProUGUI distanceToTargetText;
     [SerializeField] TextMeshProUGUI playerHealthText;
+    [SerializeField] GameObject hardModeButton;
     bool isPlaying = true;
 
     void Start()
@@ -44,5 +45,18 @@ public class UIController : MonoBehaviour
         PlayerController playerController = FindAnyObjectByType<PlayerController>();
         float healthPercent = Mathf.Round((float)playerController.GetCurrentPlayerHealth() / playerController.GetStartingPlayerHealth() * 100);
         playerHealthText.SetText("{0:000} %", healthPercent);
+    }
+
+    public void ToggleHardMode(){
+        if(hardModeButton != null){
+            if(!hardModeButton.activeInHierarchy){
+            hardModeButton.SetActive(true);
+            }
+
+            else {
+                hardModeButton.SetActive(false);
+            }
+        }
+        
     }
 }

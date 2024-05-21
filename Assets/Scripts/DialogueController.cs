@@ -24,7 +24,10 @@ public class DialogueController : MonoBehaviour
     {
         isTyping = true;
         missionControlText.SetText("");
-        StartCoroutine(textTypewriter(missionControlText, missionControlTextList[currentDialogueIndex].GetMissionControlText()));
+        if(missionControlTextList.Count > 0){
+            StartCoroutine(textTypewriter(missionControlText, missionControlTextList[currentDialogueIndex].GetMissionControlText()));
+        }
+        
     }
     private void Update()
     {
@@ -100,17 +103,19 @@ public class DialogueController : MonoBehaviour
         StopAllCoroutines();
         isGameOver = true;
         missionControlText.SetText("");
+        missionControlTextList.Clear();
         missionControlTextList.AddRange(victoryDialogues);
-        currentDialogueIndex = missionControlTextList.Count - 5;
+        currentDialogueIndex = 0;
         StartCoroutine(EndGameDialogueTyping());
     }
 
     public void BeginFailureDialogues(){
         StopAllCoroutines();
         isGameOver = true;
-        missionControlText.SetText("");
+        //missionControlText.SetText("");
+        missionControlTextList.Clear();
         missionControlTextList.AddRange(failureDialogues);
-        currentDialogueIndex = missionControlTextList.Count - 5;
+        currentDialogueIndex = 0;
         StartCoroutine(EndGameDialogueTyping());
     }
 }

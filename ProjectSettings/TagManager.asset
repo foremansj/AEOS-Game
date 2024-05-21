@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Point of No Return
+  - Obstacle
+  - Projectiles
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - UI
   - Player
   - Background
-  - 
-  - 
+  - Projectiles
+  - Obstacles
   - 
   - 
   - 
